@@ -100,11 +100,11 @@ colorscheme icecream
 
 " plugins 
 let $BASE_DIR = rc_root
-const g:local_repo = '~/repos'->expand()
+const g:dpp_repo = '~/.cache/dpp'->expand()
 
 function! s:git_use(repo) abort
 " {{{
-  let dir = g:local_repo . '/github.com/'->expand() .. a:repo
+  let dir = g:dpp_repo . '/github.com/'->expand() .. a:repo
   if !(dir->isdirectory())
     execute '!git clone https://github.com/' .. a:repo dir
   endif
@@ -172,8 +172,8 @@ call s:git_use('Shougo/dpp-ext-installer')
 call s:git_use('Shougo/dpp-protocol-git')
 call s:git_use('vim-denops/denops.vim')
 
-if g:local_repo->dpp#min#load_state()
-  autocmd User DenopsReady call dpp#make_state(g:local_repo, '$BASE_DIR/conf/dpp.ts'->expand())
+if g:dpp_repo->dpp#min#load_state()
+  autocmd User DenopsReady call dpp#make_state(g:dpp_repo, '$BASE_DIR/conf/dpp.ts'->expand())
 endif
 " }}}
 

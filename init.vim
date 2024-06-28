@@ -104,7 +104,7 @@ const g:dpp_repo = '~/.cache/dpp'->expand()
 
 function! s:git_use(repo) abort
 " {{{
-  let dir = g:dpp_repo . '/github.com/'->expand() .. a:repo
+  let dir = g:dpp_repo . '/repos/github.com/'->expand() .. a:repo
   if !(dir->isdirectory())
     execute '!git clone https://github.com/' .. a:repo dir
   endif

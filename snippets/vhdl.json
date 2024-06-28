@@ -1,0 +1,51 @@
+{
+  "And": {
+    "prefix": ["and"],
+    "body": [
+      "And(a=$1, b=$2, out=$3);",
+      "$0"
+    ]
+  },
+  "Nand": {
+    "prefix": ["nand"],
+    "body": [
+      "Nand(a=$1, b=$2, out=$3);",
+      "$0"
+    ]
+  },
+  "Not": {
+    "prefix": ["not"],
+    "body": [
+      "Not(in=$1, out=$2);",
+      "$0"
+    ]
+  },
+  "Or": {
+    "prefix": ["or"],
+    "body": [
+      "Or(a=$1, b=$2, out=$3);",
+      "$0"
+    ]
+  },
+  "Xor": {
+    "prefix": ["xor"],
+    "body": [
+      "Xor(a=$1, b=$2, out=$3);",
+      "$0"
+    ]
+  },
+  "HalfAdder": {
+    "prefix": ["half"],
+    "body": [
+      "HalfAdder(a=$1, b=$2, sum=$3, carry=$4);",
+      "$0"
+    ]
+  },
+  "FullAdder": {
+    "prefix": ["full"],
+    "body": [
+      "FullAdder(a=$1, b=$2, c=$3, sum=$4, carry=$5);",
+      "$0"
+    ]
+  }
+}

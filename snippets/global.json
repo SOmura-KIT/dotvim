@@ -1,0 +1,19 @@
+{
+  "vsnip": {
+    "prefix": ["vsnip"],
+    "body": [
+      "\"$1\": {",
+      "  \"prefix\": [\"$2\"],",
+      "  \"body\": [",
+      "    \"$0\"",
+      "  ]",
+      "}"
+    ]
+  },
+  "shell bang": {
+    "prefix": ["bang"],
+    "body": [
+      "#!/usr/bin/env $0"
+    ]
+  }
+}

@@ -1,0 +1,253 @@
+[[plugins]]
+repo = 'Shougo/dpp.vim'
+on_cmd = ['DppInstall', 'DppUpdate', 'DppRemakeState']
+rtp = ''
+hook_source = '''
+function! DppRemakeState() abort
+  if denops#server#status() != 'running'
+    return
+  endif
+  call dpp#make_state(g:local_repo, '$BASE_DIR/conf/dpp.ts'->expand())
+endfunction
+command! DppRemakeState call DppRemakeState()
+command! DppInstall call dpp#async_ext_action('installer', 'install')
+command! DppUpdate call dpp#async_ext_action('installer', 'update')
+'''
+
+[[plugins]]
+repo = 'Shougo/dpp-ext-lazy'
+rtp = ''
+
+[[plugins]]
+repo = 'Shougo/dpp-protocol-git'
+on_source = 'dpp.vim'
+
+[[plugins]]
+repo = 'Shougo/dpp-ext-installer'
+on_source = 'dpp.vim'
+
+[[plugins]]
+repo = 'Shougo/dpp-ext-toml'
+on_source = 'dpp.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+depends = 'denops.vim'
+on_event = ['InsertEnter', 'CmdlineEnter']
+hook_add='''
+augroup DdcCmdEnable
+  autocmd!
+  autocmd CmdlineEnter * call ddc#enable_cmdline_completion()
+augroup END
+call ddc#custom#load_config('$BASE_DIR/conf/ddc.ts'->expand())
+call ddc#enable()
+'''
+
+[[plugins]]
+repo = 'Shougo/pum.vim'
+on_source = 'ddc.vim'
+hook_add='''
+inoremap <C-i> <Cmd>call pum#map#insert_relative(+1)<CR>
+inoremap <C-n> <Cmd>call pum#map#insert_relative(+1)<CR>
+inoremap <C-p> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
+cnoremap <expr> <C-i>
+      \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+      \ ddc#map#manual_complete()
+" <Tab>が置き換えられるため、防止
+inoremap <Tab> <Tab>
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+depends = 'pum.vim'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-around'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline-history'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-lsp'
+on_source = 'ddc.vim'
+lua_source = '''
+local capabilities = require("ddc_source_lsp").make_client_capabilities()
+'''
+
+[[plugins]]
+repo = 'LumaKernel/ddc-source-file'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'matsui54/ddc-source-buffer'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-copilot'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'uga-rosa/ddc-source-vsnip'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+on_source = 'ddc.vim'
+hook_add='''
+imap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+smap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+nnoremap <C-s> :VsnipOpen<CR>
+let g:vsnip_snippet_dir = '$BASE_DIR'->expand()->fnamemodify(':h') . '/snippets'
+'''
+
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'vim-skk/skkeleton'
+on_source = 'ddc.vim'
+hook_add='''
+function! s:skkeleton_init() abort
+  call skkeleton#azik#add_table('us')
+  call skkeleton#config({'kanaTable': 'azik',})
+  call skkeleton#config(#{
+    \ eggLikeNewline: v:true,
+    \ globalDictionaries: ["~/repos/github.com/skk-dev/dict/SKK-JISYO.L", "~/repos/github.com/skk-dev/dict/SKK-JISYO.jinmei", "~/repos/github.com/skk-dev/dict/SKK-JISYO.geo", "~/repos/github.com/skk-dev/dict/SKK-JISYO.station",  "~/repos/github.com/skk-dev/dict/SKK-JISYO.propernoun"],
+    \ })
+  call skkeleton#register_kanatable('rom', {
+    \ "z\<Space>": ["\u3000", ''],
+    \ })
+endfunction
+augroup skkeleton-initialize-pre
+  autocmd!
+  autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+augroup END
+
+imap <C-j> <Plug>(skkeleton-enable)
+cmap <C-j> <Plug>(skkeleton-enable)
+imap <C-l> <Plug>(skkeleton-disable)
+cmap <C-l> <Plug>(skkeleton-disable)
+'''
+
+[[plugins]]
+repo = 'kei-s16/skkeleton-azik-kanatable'
+on_source = 'skkeleton'
+
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+depends = 'denops.vim'
+hooks_file = '$BASE_DIR/conf/ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-ui-ff'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_substring'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'uga-rosa/ddu-filter-converter_devicon'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-kind-file'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file_rec'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'shun/ddu-source-rg'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'shun/ddu-source-buffer'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'matsui54/ddu-source-help'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'uga-rosa/ddu-source-lsp'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'lambdalisue/gin.vim'
+on_cmd = ['Gin', 'GinBuffer', 'GinBranch', 'GinBrowse', 'GinCd', 'GinLcd', 'GinTcd', 'GinChaparon', 'GinDiff', 'GinEdit', 'GinLog', 'GinPatch', 'GinStatus']
+
+[[plugins]]
+repo = 'dstein64/vim-startuptime'
+on_cmd = 'StartupTime'
+
+[[plugins]]
+repo = 'SOmura-KIT/view-mode.vim'
+on_cmd = [ 'ViewModeCenter', 'ViewModeTop', 'ViewModeBottom', 'ViewModeDisable' ]
+hook_add = '''
+nnoremap <Leader>vc <Cmd>ViewModeCenter<CR>
+nnoremap <Leader>vt <Cmd>ViewModeTop<CR>
+nnoremap <Leader>vb <Cmd>ViewModeBottom<CR>
+nnoremap <Leader>vd <Cmd>ViewModeDisable<CR>
+'''
+
+[[plugins]]
+repo = 'lilydjwg/colorizer'
+on_ft = [ 'css' ]
+
+[[plugins]]
+repo = 'github/copilot.vim'
+on_cmd = [ 'Copilot' ]
+hook_add = '''
+let g:copilot_no_tab_map = v:true
+imap <silent><script><expr> <C-;> copilot#Accept("\<CR>")
+'''
+
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = 'go'
+hook_post_update = 'GoUpdateBinaries'
+
+[[plugins]]
+repo = 'nvim-treesitter/playground'
+depends = 'nvim-treesitter'
+on_cmd = 'TSPlaygroundToggle'
+
+[[plugins]]
+repo = 'windwp/nvim-autopairs'
+on_event = 'InsertEnter'
+lua_source = '''
+require('nvim-autopairs').setup({})
+'''
+
+[[plugins]]
+repo = 'windwp/nvim-ts-autotag'
+on_source = 'nvim-treesitter'
+lua_source = '''
+require('nvim-ts-autotag').setup({})
+'''
+[[plugins]]
+repo = 'stevearc/oil.nvim'
+on_cmd = 'Oil'
+hook_add = '''
+nnoremap - <Cmd>Oil<CR>
+'''
+lua_source = '''
+require('oil').setup({})
+'''

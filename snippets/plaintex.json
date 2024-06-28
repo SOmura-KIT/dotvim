@@ -1,0 +1,148 @@
+{
+  "document": {
+    "prefix": ["document"],
+    "body": [
+      "\\documentclass{jlreq}",
+      "",
+      "\\title{$1}",
+      "\\author{$2}",
+      "\\date{$3}",
+      "",
+      "\\begin{document}",
+      "",
+      "$0",
+      "",
+      "\\end{document}"
+    ]
+  },
+  "beamer": {
+    "prefix": ["beamer"],
+    "body": [
+      "\\documentclass[aspectratio=169]{beamer}",
+      "\\usepackage[no-math,deluxe]{luatexja-preset}",
+      "\\renewcommand{\\kanjifamilydefault}{\\gtdefault}",
+      "\\renewcommand{\\emph}[1]{{\\upshape\\bfseries #1}}",
+      "\\usetheme{Madrid}",
+      "\\setbeamertemplate{navigation symbols}{}",
+      "",
+      "\\title{$1}",
+      "\\author{$2}",
+      "\\date{$3}",
+      "",
+      "\\begin{document}",
+      "",
+      "\\begin{frame}",
+      "\\end{frame}",
+      "",
+      "\\end{document}"
+    ]
+  },
+  "section" : {
+    "prefix": ["section"],
+    "body": [
+      "\\section{$1}",
+      "$0"
+    ]
+  },
+  "subsection" : {
+    "prefix": ["subsection"],
+    "body": [
+      "\\subsection{$1}",
+      "$0"
+    ]
+  },
+  "subsubsection" : {
+    "prefix": ["subsubsection"],
+    "body": [
+      "\\subsubsection{$1}",
+      "$0"
+    ]
+  },
+  "begin": {
+    "prefix": ["begin"],
+    "body": [
+      "\\begin{$1}",
+      "  $0",
+      "\\end{$1}"
+    ]
+  },
+  "begin_description": {
+    "prefix": ["description"],
+    "body": [
+      "\\begin{description}",
+      "  \\item[$1] $0",
+      "\\end{description}"
+    ]
+  },
+  "begin_flushright": {
+    "prefix": ["flushright"],
+    "body": [
+      "\\begin{flushright}",
+      "  \\item[$1] $0",
+      "\\end{flushright}"
+    ]
+  },
+  "begin_flushleft": {
+    "prefix": ["flushleft"],
+    "body": [
+      "\\begin{flushleft}",
+      "  \\item[$1] $0",
+      "\\end{flushleft}"
+    ]
+  },
+  "begin_frame": {
+    "prefix": ["frame"],
+    "body": [
+      "\\begin{frame}",
+      "\\frametitle{$1}",
+      "  $0",
+      "\\end{frame}"
+    ]
+  },
+  "begin_center": {
+    "prefix": ["center"],
+    "body": [
+      "\\begin{center}",
+      "  $0",
+      "\\end{center}"
+    ]
+  },
+  "begin_tabular": {
+    "prefix": ["tabular"],
+    "body": [
+      "\\begin{tabular}{$1}",
+      "  $0",
+      "\\end{tabular}"
+    ]
+  },
+  "begin_itemize": {
+    "prefix": ["itemize"],
+    "body": [
+      "\\begin{itemize}",
+      "  \\item $0",
+      "\\end{itemize}"
+    ]
+  },
+  "begin_block": {
+    "prefix": ["block"],
+    "body": [
+      "\\begin{block}{$1}",
+      "  $0",
+      "\\end{block}"
+    ]
+  },
+  "begin_enumerate": {
+    "prefix": ["enumerate"],
+    "body": [
+      "\\begin{enumerate}",
+      "  \\item $0",
+      "\\end{enumerate}"
+    ]
+  },
+  "item_description": {
+    "prefix": ["item"],
+    "body": [
+      "\\item[$1] $0"
+    ]
+  }
+}

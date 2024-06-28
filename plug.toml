@@ -1,0 +1,109 @@
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+lua_source = '''
+local lspconfig = require('lspconfig')
+
+lspconfig.bashls.setup({})
+lspconfig.clangd.setup({
+  root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
+})
+lspconfig.cssls.setup({})
+lspconfig.denols.setup({})
+lspconfig.gopls.setup({})
+lspconfig.lua_ls.setup({})
+lspconfig.nil_ls.setup({})
+lspconfig.pyright.setup({})
+lspconfig.texlab.setup({})
+lspconfig.vimls.setup({})
+lspconfig.markdown_oxide.setup({})
+
+vim.keymap.set('n', '<C-l>m', vim.diagnostic.open_float)
+vim.keymap.set('n', '<C-l><C-p>', vim.diagnostic.goto_prev)
+vim.keymap.set('n', '<C-l><C-n>', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<C-l>l', vim.diagnostic.setloclist)
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', '<C-l>J', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', '<C-l>j', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', '<C-l>h', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<C-l>i', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-l>s', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<C-l>w+', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<C-l>w-', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<C-l>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, opts)
+    vim.keymap.set('n', '<C-l>d', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<C-l>n', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<C-l>a', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', '<C-l>r', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<C-l>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+  end,
+})
+'''
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+hook_post_update = 'TSUpdate'
+lua_source = '''
+require('nvim-treesitter.configs').setup({
+  ensure_installed = 'all',
+  sync_install = true,
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  },
+})
+'''
+hook_add = '''
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+'''
+
+[[plugins]]
+repo = 'kevinhwang91/nvim-hlslens'
+hook_add = '''
+nnoremap n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>
+nnoremap N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>
+nnoremap * *<Cmd>lua require('hlslens').start()<CR>
+nnoremap # #<Cmd>lua require('hlslens').start()<CR>
+nnoremap g* g*<Cmd>lua require('hlslens').start()<CR>
+nnoremap g# g#<Cmd>lua require('hlslens').start()<CR>
+'''
+lua_source = '''
+require('hlslens').setup({})
+'''
+
+[[plugins]]
+repo = 'stevearc/aerial.nvim'
+hook_add = '''
+nnoremap <Leader>a <cmd>AerialToggle left<CR>
+'''
+lua_source = '''
+require("aerial").setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+  end,
+})
+'''

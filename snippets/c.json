@@ -1,0 +1,16 @@
+{
+  "include_bracket": {
+    "prefix": ["include<"],
+    "body": [
+      "#include <$1>",
+      "$0"
+    ]
+  },
+  "include_quote": {
+    "prefix": ["include\""],
+    "body": [
+      "#include \"$1\"",
+      "$0"
+    ]
+  }
+}

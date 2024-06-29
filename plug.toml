@@ -13,17 +13,43 @@ lua_source = '''
 local lspconfig = require('lspconfig')
 
 lspconfig.bashls.setup({})
-lspconfig.clangd.setup({
-  root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
-})
+lspconfig.clangd.setup({})
 lspconfig.cssls.setup({})
 lspconfig.denols.setup({})
+lspconfig.efm.setup{
+  init_options = {documentFormatting = true},
+  settings = {
+    languages = {
+      --[[ This is sample for setting.
+      vim = {
+        {
+          lintCommand = 'vint -',
+          lintStdin = true,
+          lintFormats = {'%f:%l:%c: %m'}
+        }
+      }
+      ]]
+    }
+  },
+  filetypes = {
+  }
+}
 lspconfig.gopls.setup({})
 lspconfig.lua_ls.setup({})
 lspconfig.nil_ls.setup({})
 lspconfig.pyright.setup({})
 lspconfig.texlab.setup({})
-lspconfig.vimls.setup({})
+lspconfig.vimls.setup({
+  texlab = {
+    settings = {
+      build = {
+        executable = 'lualatex',
+        args = {'--halt-on-error', '%f'},
+        onSave = true
+      }
+    }
+  }
+})
 lspconfig.markdown_oxide.setup({})
 
 vim.keymap.set('n', '<C-l>m', vim.diagnostic.open_float)

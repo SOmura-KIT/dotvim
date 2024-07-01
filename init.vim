@@ -47,7 +47,8 @@ set termguicolors
 
 " keymap
 " {{{
-let g:mapleader = '\<Space>'
+let mapleader = ' '
+nnoremap <SPACE> <Nop>
 
 " j, k for wrap and relativenumber
 nnoremap <expr> j v:count1 == 1 ? 'gj' : 'j'

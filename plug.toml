@@ -29,9 +29,18 @@ lspconfig.efm.setup{
         }
       }
       ]]
+      typescript = {
+        {
+          fmtCommand = 'deno fmt'
+        },
+        {
+          lintCommand = 'deno lint'
+        }
+      }
     }
   },
   filetypes = {
+    "typescript"
   }
 }
 lspconfig.gopls.setup({})

@@ -42,6 +42,7 @@ set helplang=ja,en
 set cmdheight=1
 set spelllang=en_us,cjk
 execute 'set' 'spellfile=' . rc_root . '/spell/en.utf-8.add'
+set nofoldenable
 set termguicolors
 " }}}
 

@@ -38,6 +38,15 @@ lspconfig.gopls.setup({})
 lspconfig.lua_ls.setup({})
 lspconfig.nil_ls.setup({})
 lspconfig.pyright.setup({})
+lspconfig.rust_analyzer.setup{
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = false;
+      }
+    }
+  }
+}
 lspconfig.texlab.setup({})
 lspconfig.vimls.setup({
   texlab = {

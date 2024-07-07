@@ -48,11 +48,25 @@ lspconfig.lua_ls.setup({})
 lspconfig.nil_ls.setup({})
 lspconfig.pyright.setup({})
 lspconfig.rust_analyzer.setup{
+  on_attach = function(client, bufnr)
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end,
   settings = {
-    ['rust-analyzer'] = {
-      diagnostics = {
-        enable = false;
-      }
+    ["rust-analyzer"] = {
+      imports = {
+          granularity = {
+              group = "module",
+          },
+          prefix = "self",
+      },
+      cargo = {
+          buildScripts = {
+              enable = true,
+          },
+      },
+      procMacro = {
+          enable = true
+      },
     }
   }
 }

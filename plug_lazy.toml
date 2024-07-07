@@ -2,17 +2,6 @@
 repo = 'Shougo/dpp.vim'
 on_cmd = ['DppInstall', 'DppUpdate', 'DppRemakeState']
 rtp = ''
-hook_source = '''
-function! DppRemakeState() abort
-  if denops#server#status() != 'running'
-    return
-  endif
-  call dpp#make_state(g:dpp_repo, '$BASE_DIR/conf/dpp.ts'->expand())
-endfunction
-command! DppRemakeState call DppRemakeState()
-command! DppInstall call dpp#async_ext_action('installer', 'install')
-command! DppUpdate call dpp#async_ext_action('installer', 'update')
-'''
 
 [[plugins]]
 repo = 'Shougo/dpp-ext-lazy'

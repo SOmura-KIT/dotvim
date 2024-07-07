@@ -177,6 +177,16 @@ call s:git_use('vim-denops/denops.vim')
 if g:dpp_repo->dpp#min#load_state()
   autocmd User DenopsReady call dpp#make_state(g:dpp_repo, '$BASE_DIR/conf/dpp.ts'->expand())
 endif
+
+function! DppRemakeState() abort
+  if denops#server#status() != 'running'
+    return
+  endif
+  call dpp#make_state(g:dpp_repo, '$BASE_DIR/conf/dpp.ts'->expand())
+endfunction
+command! DppRemakeState call DppRemakeState()
+command! DppInstall call dpp#async_ext_action('installer', 'install')
+command! DppUpdate call dpp#async_ext_action('installer', 'update')
 " }}}
 
 " autocmd

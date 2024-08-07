@@ -14,6 +14,7 @@ local lspconfig = require('lspconfig')
 
 lspconfig.bashls.setup({})
 lspconfig.clangd.setup({})
+lspconfig.clojure_lsp.setup({})
 lspconfig.cssls.setup({})
 lspconfig.denols.setup({})
 lspconfig.efm.setup{
@@ -44,6 +45,7 @@ lspconfig.efm.setup{
   }
 }
 lspconfig.gopls.setup({})
+-- lspconfig.jdtls.setup({})
 lspconfig.lua_ls.setup({})
 lspconfig.nil_ls.setup({})
 lspconfig.pyright.setup({})

@@ -198,7 +198,7 @@ nnoremap <Leader>vd <Cmd>ViewModeDisable<CR>
 
 [[plugins]]
 repo = 'lilydjwg/colorizer'
-on_ft = [ 'css' ]
+on_ft = ['vim', 'css']
 
 [[plugins]]
 repo = 'github/copilot.vim'
@@ -219,11 +219,15 @@ depends = 'nvim-treesitter'
 on_cmd = 'TSPlaygroundToggle'
 
 [[plugins]]
-repo = 'windwp/nvim-autopairs'
+repo = 'cohama/lexima.vim'
 on_event = 'InsertEnter'
-lua_source = '''
-require('nvim-autopairs').setup({})
-'''
+
+# [[plugins]]
+# repo = 'windwp/nvim-autopairs'
+# on_event = 'InsertEnter'
+# lua_source = '''
+# require('nvim-autopairs').setup({})
+# '''
 
 [[plugins]]
 repo = 'windwp/nvim-ts-autotag'
@@ -239,4 +243,28 @@ nnoremap - <Cmd>Oil<CR>
 '''
 lua_source = '''
 require('oil').setup({})
+'''
+
+[[plugins]]
+repo = 'mfussenegger/nvim-jdtls'
+on_ft = 'java'
+lua_source = '''
+local cmd = io.popen('which jdtls')
+local jdtls_path_pre = cmd:read("*a")
+cmd:close()
+local jdtls_path = jdtls_path_pre:gsub('\n$', '')
+
+local config = {
+    cmd = {jdtls_path},
+    root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+}
+require('jdtls').start_or_attach(config)
+'''
+hook_add = '''
+nnoremap <C-i> <Cmd>lua require'jdtls'.organize_imports()<CR>
+nnoremap <C-l>ev <Cmd>lua require('jdtls').extract_variable()<CR>
+vnoremap <C-l>ev <Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>
+nnoremap <C-l>ec <Cmd>lua require('jdtls').extract_constant()<CR>
+vnoremap <C-l>ec <Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>
+vnoremap <C-l>em <Esc><Cmd>lua require('jdtls').extract_method(true)<CR>
 '''

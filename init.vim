@@ -12,7 +12,7 @@ let g:loaded_netrwSettings      = v:true
 let g:loaded_netrwFileHandlers  = v:true
 let g:loaded_getscript          = v:true
 let g:loaded_getscriptPlugin    = v:true
-let g:loaded_man                = v:true
+" let g:loaded_man                = v:true
 let g:loaded_matchit            = v:true
 let g:loaded_matchparen         = v:true
 let g:loaded_shada_plugin       = v:true
@@ -166,7 +166,6 @@ endif
 
 " dpp
 " {{{
-filetype plugin indent on " Enable ftplugin
 call s:git_use('Shougo/dpp.vim')
 call s:git_use('Shougo/dpp-ext-lazy')
 call s:git_use('Shougo/dpp-ext-toml')
@@ -187,6 +186,7 @@ endfunction
 command! DppRemakeState call DppRemakeState()
 command! DppInstall call dpp#async_ext_action('installer', 'install')
 command! DppUpdate call dpp#async_ext_action('installer', 'update')
+filetype plugin indent on " Enable ftplugin
 " }}}
 
 " autocmd
